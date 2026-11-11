@@ -1,28 +1,9 @@
 <div class="app-shell">
-  <header class="topbar">
-    <a class="brand" href="#" aria-label="SI Helper home">
-      <span class="brand-mark" aria-hidden="true">SI</span>
-      <span>SI <span class="brand-dot">Helper</span></span>
-    </a>
-    <div class="topbar-note"><span class="live-dot"></span> Unofficial fan-made helper</div>
-    <span class="topbar-mark" aria-hidden="true">✳</span>
-  </header>
-
   <main class="page-content">
-    <section class="page-heading">
-      <div>
-        <p class="eyebrow">SPIRIT ISLAND HELPER</p>
-        <h1>Keep track of <span>your draws.</span></h1>
-        <p class="heading-copy">Five sample decks, live odds, and a place to track cards you hope to see — or avoid.</p>
-      </div>
-      <div class="heading-stamp"><span aria-hidden="true">✳</span> Original placeholders only</div>
-    </section>
-
     <section class="workspace" aria-label="Card deck workspace">
       <aside class="deck-sidebar">
         <div class="sidebar-heading">
           <div>
-            <p class="eyebrow">SAMPLE DECKS</p>
             <h2>
               Decks <span>{{ decks().length }}</span>
             </h2>
@@ -60,7 +41,9 @@
         <div class="odds-card">
           <div class="odds-card-heading">
             <span class="odds-star" aria-hidden="true">✳</span>
-            <span>NEXT-DRAW ODDS</span>
+            <span>
+              {{ isPowerDeck() ? 'NEXT ' + effectiveDrawCount() + '-CARD DRAW' : 'NEXT-DRAW ODDS' }}
+            </span>
           </div>
           <div class="odds-row">
             <span class="odds-label"><i class="odds-dot wishlist-dot"></i> Wishlist</span>
@@ -76,43 +59,23 @@
           <div class="odds-track">
             <span class="red-track" [style.width.%]="redFlagOdds()"></span>
           </div>
-          <p>Chance from the remaining {{ selectedDeck().name }} pile</p>
+          <p>Chance of at least one match in the draw</p>
         </div>
 
-        <div class="tip-card">
-          <span class="tip-spark" aria-hidden="true">✦</span>
-          <p><strong>Original placeholders</strong><br />No official card names or game text.</p>
-        </div>
       </aside>
 
       <section class="deck-main" aria-labelledby="deck-title">
         <div class="deck-heading">
           <div class="deck-heading-copy">
-            <div class="deck-kicker"><span class="deck-kicker-dot"></span> DRAW PILE</div>
             <h2 id="deck-title">{{ selectedDeck().name }}</h2>
             <p>
-              {{ selectedDeck().subtitle }} <span>·</span> {{ availableCards().length }} remaining of
-              {{ selectedDeck().cards.length }} cards
+              {{ availableCards().length }} remaining of {{ selectedDeck().cards.length }} cards
             </p>
           </div>
-          <div class="stat-pills">
-            <div class="stat-pill">
-              <span class="stat-icon hit-icon" aria-hidden="true">✓</span>
-              <span
-                ><strong>{{ currentStats().hits }}</strong
-                ><small>hits</small></span
-              >
-            </div>
+          <div class="deck-heading-actions">
             @if (hasDrawnCards()) {
               <button class="reset-button" type="button" (click)="resetDraws()">Shuffle again</button>
             }
-            <div class="stat-pill">
-              <span class="stat-icon draw-icon" aria-hidden="true">↗</span>
-              <span
-                ><strong>{{ totalAttempts() }}</strong
-                ><small>draws</small></span
-              >
-            </div>
           </div>
         </div>
 
@@ -120,47 +83,48 @@
           <div class="draw-stage">
             <div class="stage-decoration decoration-left" aria-hidden="true">✳</div>
             <div class="stage-decoration decoration-right" aria-hidden="true">✧</div>
-            <div class="stage-label"><span></span> DRAW FROM THE REMAINING CARDS <span></span></div>
-            @if (drawnCard(); as card) {
-              <article
-                class="drawn-card"
-                [class.card-wishlist]="card.mark === 'wishlist'"
-                [class.card-redflag]="card.mark === 'red-flag'"
-              >
-                <div class="drawn-card-top">
-                  <span class="card-suit" aria-hidden="true">{{ selectedDeck().symbol }}</span>
-                  <span class="drawn-chance">{{ Math.round(cardOdds()) }}% draw chance</span>
-                </div>
-                <div class="drawn-card-center">
-                  <span class="card-big-symbol" aria-hidden="true">{{
-                    selectedDeck().symbol
-                  }}</span>
-                  <h3>{{ card.name }}</h3>
-                  <p>{{ card.detail }}</p>
-                </div>
-                <div class="drawn-card-bottom">
-                  <span>{{ selectedDeck().name }}</span>
-                  @if (card.mark === 'wishlist') {
-                    <span class="drawn-status wishlist-status">♡ Wishlist</span>
-                  } @else if (card.mark === 'red-flag') {
-                    <span class="drawn-status red-status">⚑ Red flag</span>
-                  } @else {
-                    <span>✦</span>
+            @if (drawnCards().length) {
+              <div class="drawn-cards">
+                @for (draw of drawnCards(); track draw.card.id) {
+                  <article
+                    class="drawn-card"
+                    [class.card-wishlist]="draw.card.mark === 'wishlist'"
+                    [class.card-redflag]="draw.card.mark === 'red-flag'"
+                  >
+                    <div class="drawn-card-top">
+                      <span class="card-suit" aria-hidden="true">{{ selectedDeck().symbol }}</span>
+                      <span class="drawn-chance">{{ Math.round(draw.odds) }}% batch chance</span>
+                    </div>
+                    <div class="drawn-card-center">
+                      <span class="card-big-symbol" aria-hidden="true">{{ selectedDeck().symbol }}</span>
+                      <h3>{{ draw.card.name }}</h3>
+                      <p>{{ draw.card.detail }}</p>
+                    </div>
+                    <div class="drawn-card-bottom">
+                      <span>{{ selectedDeck().name }}</span>
+                      @if (draw.card.mark === 'wishlist') {
+                        <span class="drawn-status wishlist-status">♡ Wishlist hit</span>
+                      } @else if (draw.card.mark === 'red-flag') {
+                        <span class="drawn-status red-status">⚑ Red flag</span>
+                      } @else {
+                        <span>✦</span>
+                      }
+                    </div>
+                  </article>
+                }
+              </div>
+              @if (drawNotices().length) {
+                <div class="draw-notices" aria-live="polite">
+                  @for (notice of drawNotices(); track notice.cardName) {
+                    <p [class.notice-wishlist]="notice.kind === 'wishlist'" [class.notice-red-flag]="notice.kind === 'red-flag'">
+                      @if (notice.kind === 'wishlist') {
+                        Wishlist hit: {{ notice.cardName }}
+                      } @else {
+                        Red flag drawn: {{ notice.cardName }}
+                      }
+                    </p>
                   }
                 </div>
-              </article>
-              @if (drawNotice(); as notice) {
-                <p
-                  class="draw-notice"
-                  [class.notice-wishlist]="notice.kind === 'wishlist'"
-                  [class.notice-red-flag]="notice.kind === 'red-flag'"
-                  aria-live="polite"
-                >{{ notice.text }}</p>
-              }
-              @if (drawResult() !== null) {
-                <p class="result-message" [class.result-hit]="drawResult()">
-                  {{ drawResult() ? 'Nice — it was a hit!' : 'Not this time. Keep going!' }}
-                </p>
               }
             } @else {
               <div class="empty-card">
@@ -177,7 +141,7 @@
                 <p>
                   {{
                     availableCards().length
-                      ? 'Draw once, then mark the result to continue.'
+                      ? 'Draw a card to reveal it.'
                       : hasDrawnCards()
                         ? 'Shuffle again to return drawn cards to this pile.'
                         : 'Restore a removed card to draw from this pile.'
@@ -185,48 +149,59 @@
                 </p>
               </div>
             }
-            <button
-              class="draw-button"
-              type="button"
-              [disabled]="!availableCards().length || (!!drawnCard() && drawResult() === null)"
-              (click)="drawCard()"
-            >
-              <span aria-hidden="true">✦</span> {{ availableCards().length ? 'Draw a card' : 'Pile exhausted' }}
-              <span class="button-arrow" aria-hidden="true">→</span>
-            </button>
-            <div class="draw-caption">Drawn cards stay out until you shuffle again.</div>
-          </div>
-
-          <div class="result-actions" [class.actions-muted]="!drawnCard() || drawResult() !== null">
-            <span class="actions-question">Did you hit?</span>
-            <div class="result-buttons">
+            @if (isPowerDeck()) {
+              <div class="draw-controls">
+                @for (count of powerDrawCounts; track count) {
+                  <button
+                    class="draw-button quick-draw-button"
+                    type="button"
+                    [disabled]="!canDraw(count)"
+                    (click)="drawCards(count)"
+                  >
+                    <span class="draw-button-title"><span aria-hidden="true">✦</span> Draw {{ count }}</span>
+                    <small class="draw-button-odds">
+                      ♡ {{ Math.round(drawOddsFor('wishlist', count)) }}%
+                      · ⚑ {{ Math.round(drawOddsFor('red-flag', count)) }}%
+                    </small>
+                  </button>
+                }
+                <div class="custom-draw">
+                  <label for="custom-draw-count">Custom</label>
+                  <input
+                    id="custom-draw-count"
+                    type="number"
+                    min="1"
+                    [max]="availableCards().length"
+                    [value]="customDrawValue()"
+                    aria-label="Custom number of power cards to draw"
+                    (input)="setCustomDrawValue($event)"
+                  />
+                  <button
+                    class="draw-button quick-draw-button"
+                    type="button"
+                    [disabled]="!canDraw(drawCount())"
+                    (click)="drawCards(drawCount())"
+                  >Draw X</button>
+                </div>
+              </div>
+            } @else {
               <button
+                class="draw-button"
                 type="button"
-                class="hit-button"
-                [disabled]="!drawnCard() || drawResult() !== null"
-                (click)="markResult(true)"
+                [disabled]="!availableCards().length"
+                (click)="drawCards(1)"
               >
-                <span aria-hidden="true">✓</span> Hit
+                <span aria-hidden="true">✦</span>
+                {{ availableCards().length ? 'Draw a card' : 'Pile exhausted' }}
+                <span class="button-arrow" aria-hidden="true">→</span>
               </button>
-              <button
-                type="button"
-                class="miss-button"
-                [disabled]="!drawnCard() || drawResult() !== null"
-                (click)="markResult(false)"
-              >
-                <span aria-hidden="true">↗</span> Miss
-              </button>
-            </div>
-            <span class="hit-rate">{{
-              totalAttempts() ? Math.round(hitRate()) + '% hit rate' : 'Your results will show here'
-            }}</span>
+            }
           </div>
         </div>
 
         <div class="cards-section">
           <div class="cards-section-heading">
             <div>
-              <p class="eyebrow">CUSTOMIZE THIS PLACEHOLDER PILE</p>
               <h3>
                 {{ selectedDeck().name }} cards <span>{{ selectedDeck().cards.length }}</span>
               </h3>
@@ -323,7 +298,6 @@
     </section>
     <footer class="page-footer">
       <span>Unofficial fan-made helper; not affiliated with or endorsed by the publisher.</span>
-      <span>Original placeholder content only <b>✳</b></span>
     </footer>
   </main>
 </div>
