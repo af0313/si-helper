@@ -86,6 +86,39 @@ button {
   gap: 4px;
 }
 
+.adversary-toggle {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 14px 5px 16px;
+  color: #48554a;
+  cursor: pointer;
+}
+
+.adversary-toggle input {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 auto;
+  margin: 1px 0 0;
+  accent-color: #3e7162;
+}
+
+.adversary-toggle span {
+  display: grid;
+  gap: 4px;
+}
+
+.adversary-toggle strong {
+  font-size: 10px;
+  font-weight: 650;
+}
+
+.adversary-toggle small {
+  color: #8b8d82;
+  font-size: 8px;
+  line-height: 1.4;
+}
+
 .deck-option {
   width: 100%;
   min-height: 56px;
@@ -148,9 +181,9 @@ button {
   background: #f5eae2;
 }
 
-.symbol-invader {
-  color: #5d8373;
-  background: #e6eee7;
+.symbol-blight {
+  color: #9a6658;
+  background: #f3e7e1;
 }
 
 .deck-option-copy {
@@ -331,6 +364,22 @@ button {
   background: #e2ece2;
 }
 
+.session-reset-button {
+  padding: 8px 10px;
+  color: #966c60;
+  background: #f8efea;
+  border: 1px solid #efdfd6;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 9px;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.session-reset-button:hover {
+  background: #f3e5de;
+}
+
 .draw-area {
   margin-top: 17px;
   border: 1px solid #efeee7;
@@ -403,6 +452,40 @@ button {
   margin-top: 0;
 }
 
+.drawn-cards:has(.drawn-card:only-child) {
+  display: flex;
+  justify-content: center;
+}
+
+.drawn-card:only-child {
+  transform: rotate(0deg);
+}
+
+.drawn-cards.fanned-cards {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  overflow-x: auto;
+  padding: 18px 22px 24px;
+}
+
+.drawn-cards.fanned-cards .drawn-card {
+  flex: 0 0 clamp(88px, 16vw, 150px);
+  width: clamp(88px, 16vw, 150px);
+  min-height: 190px;
+  margin-left: clamp(-80px, -8vw, -44px);
+  transform: rotate(var(--fan-angle)) translateY(8px);
+}
+
+.drawn-cards.fanned-cards .drawn-card:first-child {
+  margin-left: 0;
+}
+
+.drawn-cards.fanned-cards .drawn-card:hover {
+  z-index: 3;
+  transform: translateY(-7px);
+}
+
 .card-wishlist {
   border-color: #b9d1c1;
 }
@@ -447,14 +530,6 @@ button {
   font-family: Georgia, serif;
   font-size: 17px;
   font-weight: 500;
-}
-
-.drawn-card-center p {
-  margin: 0 auto;
-  max-width: 145px;
-  color: #85877c;
-  font-size: 9px;
-  line-height: 1.4;
 }
 
 .drawn-card-bottom {
@@ -539,13 +614,53 @@ button {
 .draw-notices {
   z-index: 1;
   display: grid;
-  gap: 4px;
+  gap: 9px;
+  margin-top: 6px;
 }
 
 .draw-notices p {
   margin: 0;
-  font-size: 10px;
+  padding: 7px 12px;
+  border: 1px solid currentColor;
+  border-radius: 16px;
+  font-size: 11px;
+  font-weight: 700;
   text-align: center;
+}
+
+.draw-notices .notice-wishlist {
+  color: #477b5c;
+  background: #e7f0e8;
+  border-color: #c8ddce;
+}
+
+.draw-notices .notice-red-flag {
+  color: #a85e49;
+  background: #f8ebe5;
+  border-color: #efd1c5;
+}
+
+.proceed-button {
+  z-index: 1;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  margin-top: 12px;
+  color: #fffefa;
+  background: #3e7162;
+  border: 0;
+  border-radius: 50%;
+  box-shadow: 0 3px 6px #355d501c;
+  cursor: pointer;
+  font-size: 19px;
+  line-height: 1;
+  transition: background 150ms ease, transform 150ms ease;
+}
+
+.proceed-button:hover {
+  background: #315f52;
+  transform: translateX(2px);
 }
 
 .draw-button {
@@ -673,6 +788,12 @@ button {
   font-weight: 500;
 }
 
+.blacklist-save-note {
+  margin: 4px 0 0;
+  color: #929288;
+  font-size: 8px;
+}
+
 .legend {
   display: flex;
   gap: 11px;
@@ -710,6 +831,10 @@ button {
   opacity: 0.52;
 }
 
+.card-row-conditional {
+  opacity: 0.72;
+}
+
 .card-row-drawn {
   background: #faf9f5;
 }
@@ -740,15 +865,6 @@ button {
   white-space: nowrap;
 }
 
-.list-card-copy p {
-  overflow: hidden;
-  margin: 4px 0 0;
-  color: #95958b;
-  font-size: 9px;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .tag {
   flex: 0 0 auto;
   padding: 3px 6px;
@@ -772,6 +888,16 @@ button {
   background: #efeee9;
 }
 
+.conditional-tag {
+  color: #7d7655;
+  background: #f2efdf;
+}
+
+.taken-tag {
+  color: #647d8c;
+  background: #eaf0f3;
+}
+
 .card-probability {
   width: 42px;
   color: #596e5e;
@@ -791,8 +917,35 @@ button {
 .card-tools {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 4px;
   margin-left: 7px;
+}
+
+.take-button {
+  min-width: 39px;
+  padding: 5px 7px;
+  color: #667b88;
+  background: #edf2f4;
+  border: 1px solid #e3eaed;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 8px;
+  font-weight: 650;
+}
+
+.take-button:hover,
+.take-button.is-taken {
+  color: #fff;
+  background: #708b98;
+  border-color: #708b98;
+}
+
+.drawn-take-button {
+  align-self: center;
+  min-width: 62px;
+  margin: 0 auto;
+  padding: 6px 10px;
+  font-size: 9px;
 }
 
 .icon-button {
@@ -1050,11 +1203,6 @@ a:focus-visible {
     font-size: 9px;
   }
 
-  .list-card-copy p {
-    max-width: 145px;
-    font-size: 8px;
-  }
-
   .tag {
     padding: 3px 4px;
     font-size: 6px;
@@ -1091,6 +1239,16 @@ a:focus-visible {
     padding: 10px 9px;
   }
 
+  .drawn-cards.fanned-cards {
+    justify-content: flex-start;
+  }
+
+  .drawn-cards.fanned-cards .drawn-card {
+    flex-basis: 110px;
+    width: 110px;
+    margin-left: -52px;
+  }
+
   .quick-draw-button {
     min-width: 78px;
     height: 44px;
@@ -1109,6 +1267,18 @@ a:focus-visible {
 
   .custom-draw input {
     width: 45px;
+  }
+
+  .take-button {
+    min-width: 34px;
+    padding: 5px 4px;
+    font-size: 7px;
+  }
+
+  .session-reset-button,
+  .reset-button {
+    padding: 6px 7px;
+    font-size: 8px;
   }
 
 }

@@ -38,6 +38,18 @@
           }
         </nav>
 
+        <label class="adversary-toggle">
+          <input
+            type="checkbox"
+            [checked]="frenchAdversary()"
+            (change)="setFrenchAdversary($event)"
+          />
+          <span>
+            <strong>French adversary</strong>
+            <small>Enables Slave Rebellion</small>
+          </span>
+        </label>
+
         <div class="odds-card">
           <div class="odds-card-heading">
             <span class="odds-star" aria-hidden="true">✳</span>
@@ -76,6 +88,7 @@
             @if (hasDrawnCards()) {
               <button class="reset-button" type="button" (click)="resetDraws()">Shuffle again</button>
             }
+            <button class="session-reset-button" type="button" (click)="resetSession()">Reset session</button>
           </div>
         </div>
 
@@ -84,12 +97,13 @@
             <div class="stage-decoration decoration-left" aria-hidden="true">✳</div>
             <div class="stage-decoration decoration-right" aria-hidden="true">✧</div>
             @if (drawnCards().length) {
-              <div class="drawn-cards">
-                @for (draw of drawnCards(); track draw.card.id) {
+              <div class="drawn-cards" [class.fanned-cards]="drawnCards().length > 1">
+                @for (draw of drawnCards(); track draw.card.id; let index = $index) {
                   <article
                     class="drawn-card"
                     [class.card-wishlist]="draw.card.mark === 'wishlist'"
                     [class.card-redflag]="draw.card.mark === 'red-flag'"
+                    [style.--fan-angle]="fanAngle(index) + 'deg'"
                   >
                     <div class="drawn-card-top">
                       <span class="card-suit" aria-hidden="true">{{ selectedDeck().symbol }}</span>
@@ -98,7 +112,6 @@
                     <div class="drawn-card-center">
                       <span class="card-big-symbol" aria-hidden="true">{{ selectedDeck().symbol }}</span>
                       <h3>{{ draw.card.name }}</h3>
-                      <p>{{ draw.card.detail }}</p>
                     </div>
                     <div class="drawn-card-bottom">
                       <span>{{ selectedDeck().name }}</span>
@@ -110,6 +123,16 @@
                         <span>✦</span>
                       }
                     </div>
+                    <button
+                      class="take-button drawn-take-button"
+                      [class.is-taken]="draw.card.taken"
+                      type="button"
+                      [attr.aria-label]="draw.card.taken ? 'Return ' + draw.card.name + ' to future decks' : 'Mark ' + draw.card.name + ' as taken'"
+                      [attr.aria-pressed]="draw.card.taken"
+                      (click)="toggleTaken(draw.card.id)"
+                    >
+                      {{ draw.card.taken ? 'Taken' : 'Take' }}
+                    </button>
                   </article>
                 }
               </div>
@@ -126,6 +149,15 @@
                   }
                 </div>
               }
+              <button
+                class="proceed-button"
+                type="button"
+                aria-label="Clear drawn cards and continue"
+                title="Clear drawn cards and continue"
+                (click)="proceed()"
+              >
+                <span aria-hidden="true">→</span>
+              </button>
             } @else {
               <div class="empty-card">
                 <span class="empty-card-icon" aria-hidden="true">{{ selectedDeck().symbol }}</span>
@@ -171,7 +203,7 @@
                     id="custom-draw-count"
                     type="number"
                     min="1"
-                    [max]="availableCards().length"
+                    max="10"
                     [value]="customDrawValue()"
                     aria-label="Custom number of power cards to draw"
                     (input)="setCustomDrawValue($event)"
@@ -205,6 +237,7 @@
               <h3>
                 {{ selectedDeck().name }} cards <span>{{ selectedDeck().cards.length }}</span>
               </h3>
+              <p class="blacklist-save-note">Blacklist changes save automatically in this browser.</p>
             </div>
             <div class="legend">
               <span><i class="legend-dot wishlist-dot"></i> Wishlist</span>
@@ -219,6 +252,7 @@
                 class="card-row"
                 [class.card-row-removed]="card.blacklisted"
                 [class.card-row-drawn]="card.drawn"
+                [class.card-row-conditional]="isFrenchOnly(card) && !frenchAdversary()"
               >
                 <span
                   class="list-card-icon"
@@ -236,11 +270,15 @@
                     }
                     @if (card.blacklisted) {
                       <span class="tag removed-tag">Removed</span>
+                    } @else if (isFrenchOnly(card) && !frenchAdversary()) {
+                      <span class="tag conditional-tag">French only</span>
                     } @else if (card.drawn) {
                       <span class="tag drawn-tag">Drawn</span>
                     }
+                    @if (card.taken) {
+                      <span class="tag taken-tag">Taken</span>
+                    }
                   </div>
-                  <p>{{ card.detail }}</p>
                 </div>
                 <div class="card-probability">
                   {{ cardProbability(card) }}<small>{{ card.drawn ? 'used this shuffle' : 'next draw' }}</small>

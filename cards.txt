@@ -1,0 +1,347 @@
+Blight deck:
+Downward Spiral
+Memory Fades to Dust
+A Pall Upon the Land
+Aid from Lesser Spirits
+Back Against the Wall
+Disintegrating Ecosystem
+Erosion of Will
+Promising Farmlands
+All Things Weaken
+Invaders Find the Land to Their Liking
+Power Corrodes the Spirit
+Strong Earth Shatters Slowly
+Thriving Communities
+Unnatural Proliferation
+Untended Land Crumbles
+Attenuated Essence
+Blight Corrodes the Spirit
+Burn Brightest Before the End
+Intensifying Exploitation
+Shattered Fragments of Power
+Slow Dissolution of Will
+The Border of Life and Death
+Thriving Crops
+
+---
+
+Fear deck:
+Avoid the Dahan
+Belief Takes Root
+Dahan Enheartened
+Dahan on their Guard
+Dahan Raid
+Emigration Accelerates
+Fear of the Unseen
+Isolation
+Overseas Trade Seems Safer
+Retreat!
+Scapegoats
+Seek Safety
+Tall Tales of Savagery
+Trade Suffers
+Wary of the Interior
+Dahan Attack
+Dahan Threaten
+Demoralized
+Depart the Dangerous Land
+Discord
+Explorers are Reluctant
+Flee the Pestilent Land
+Immigration Slows
+Panic
+Panicked by Wild Beasts
+Plan for Departure
+Quarantine
+Too Many Monsters
+Tread Carefully
+Unrest
+Beset by Many Troubles
+Dahan Reclaim Fishing Grounds
+Flee from Dangerous Lands
+Nerves Fray
+Sense of Dread
+Theological Strife
+Angry Mobs
+Communities in Disarray
+Depopulation
+Mimic the Dahan
+Spreading Timidity
+Civil Unrest
+Dahan Gain the Edge
+Daunted by the Dahan
+Distracted by Local Troubles
+Restlessness
+Seek Company
+Struggles over Farmland
+Supply Chains Abandoned
+Unsettled
+
+---
+Event deck:
+Accumulated Devastation
+An Ominous Dawn
+Bureaucrats Adjust Funding
+Cities Rise
+Civic Engagement
+Coastal Towns Multiply
+Cultural Assimilation
+Dahan Trade with the Invaders
+Distant Exploration
+Eager Explorers
+Ethereal Conjunction
+Far-off Wars Touch the Island
+Far-off Wars Touch the Island
+Farmers Seek the Dahan for Aid
+Focused Farming
+Fortune-Seekers
+Gradual Corruption
+Hard-Working Settlers
+Harvest Bounty, Harvest Dust
+Heavy Farming
+Influx of Settlers
+Interesting Discoveries
+Invaders Surge Inland
+Investigation of Dangers
+Invested Aristocracy
+Lesser Spirits Imperiled
+Life's Balance Tilts
+Mapmakers Chart the Wild
+Missionaries Arrive
+New Species Spread
+No Bravery Without Numbers
+Numinous Crisis
+Overconfidence
+Population Rises
+Promising Farmland
+Provincial Seat
+Pull Together in Adversity
+Putting Down Roots
+Relentless Optimism
+Remnants of a Spirit's Heart
+Resourceful Populace
+Rising Interest in the Island
+Sacred Sites Under Threat
+Search for New Lands
+Search for Unclaimed Land
+Seeking the Interior
+Seek New Farmland
+Slave Rebellion
+Smaller Ports Spring Up
+Sprawl Contained by the Wilds
+Strange Tales Attract Explorers
+Temporary Truce
+Terror Spikes Upwards
+The Frontier Calls
+The Struggles of Growth
+Thriving Trade
+Tight-Knit Communities
+Urban Development
+Visions Out of Time
+Wave of Reconnaissance
+Well-Prepared Explorers
+Wounded Lands Attract Explorers
+Years of Little Rain
+
+---
+Invader deck:
+I Jungle
+I Mountain
+I Sand
+I Wetland
+II Coastal
+II Jungle
+II Mountain
+II Sand
+II Wetland
+III Jungle/Sand
+III Jungle/Wetland
+III Mountain/Jungle
+III Sand/Wetland
+III Sand/Mountain
+III Sand/Wetland
+
+---
+Minor Powers:
+Absorb Corruption
+Animated Wrackroot
+Bats Scout for Raids by Darkness
+Birds Cry Warning
+Blood Draws Predators
+Call of the Dahan Ways
+Call to Bloodshed
+Call to Ferocity
+Call to Guard
+Call to Isolation
+Call to Migrate
+Call to Tend
+Call to Trade
+Carapaced Land
+Confounding Mists
+Cycles of Time and Tide
+Dark and Tangled Woods
+Delusions of Danger
+Desiccating Winds
+Devouring Ants
+Dire Metamorphosis
+Disorienting Landscape
+Domesticated Animals Go Berserk
+Drift Down into Slumber
+Drought
+Dry Wood Explodes in Smoldering Splinters
+Elemental Boon
+Elusive Ambushes
+Encompassing Ward
+Enticing Splendor
+Entrancing Apparitions
+Entrap the Forces of Corruption
+Favor of the Sun and Star-lit Dark
+Fire in the Sky
+Fleshrot Fever
+Flow Downriver, Blow Downwind
+Gift of Constancy
+Gift of Living Energy
+Gift of Nature's Connection
+Gift of Power
+Gift of Twinned Days
+Gnawing Rootbiters
+Gold's Allure
+Growth Through Sacrifice
+Guardian Serpents
+Haunted by Primal Memories
+Hazards Spread Across the Island
+Here There Be Monsters
+Infested Aquifers
+Inflame the Fires of Life
+Land of Haunts and Embers
+Like Calls to Like
+Lure of the Unknown
+Mesmerized Tranquility
+Nature's Resilience
+Pact of the Joined Hunt
+Poisoned Dew
+Portents of Disaster
+Promises of Protection
+Prowling Panthers
+Pull Beneath the Hungry Earth
+Purifying Flame
+Quicken the Earth's Struggles
+Rain of Blood
+Razor-Sharp Undergrowth
+Reaching Grasp
+Renewing Boon
+Renewing Rain
+Rites of the Land's Rejection
+Roiling Bog and Snagging Thorn
+Rouse the Trees and Stones
+Sap the Strength of Multitudes
+Savage Mawbeasts
+Scour the Land
+Scream Disease Into the Wind
+Sear Anger Into the Wild Lands
+Set Them on an Ever-Twisting Trail
+Shadows of the Burning Forest
+Skies Herald the Season of Return
+Sky Stretches to Shore
+Song of Sanctity
+Spur on with Words of Fire
+Steam Vents
+Strong and Constant Currents
+Sucking Ooze
+Sunset's Fire Flows Across the Land
+Swarming Wasps
+Teeming Rivers
+Territorial Strife
+Terror Turns to Madness
+The Shore Seethes with Hatred
+Thriving Chokefungus
+Tormenting Rotflies
+Treacherous Waterways
+Twilight Fog Brings Madness
+Uncanny Melting
+Unquenchable Flames
+Veil the Night's Hunt
+Visions of Fiery Doom
+Voracious Growth
+Weep for What is Lost
+
+---
+Major Powers:
+Accelerated Rot
+Angry Bears
+Bargain of Coursing Paths
+Bargains of Power and Protection
+Blazing Renewal
+Bloodwrack Plague
+Bombard with Boulders and Stinging Seeds
+Cast Down Into the Briny Deep
+Cleansing Floods
+Death Falls Gently from Open Blossoms
+Dissolve the Bonds of Kinship
+Draw Towards a Consuming Void
+Dream of the Untouched Land
+Entwined Power
+Exaltation of the Incandescent Sky
+Fire and Flood
+Flocking Red-Talons
+Flow like Water, Reach like Air
+Focus the Land's Anguish
+Forests of Living Obsidian
+Fragments of Yesteryear
+Grant Hatred a Ravenous Form
+Indomitable Claim
+Infestation of Venomous Spiders
+Infinite Vitality
+Insatiable Hunger of the Swarm
+Inspire the Release of Stolen Lands
+Instruments of Their Own Ruin
+Irresistible Call
+Manifest Incarnation
+Melt Earth Into Quicksand
+Mists of Oblivion
+Paralyzing Fright
+Pent-Up Calamity
+Pillar of Living Flame
+Plague Ships Sail to Distant Ports
+Poisoned Land
+Powerstorm
+Pyroclastic Flow
+Ravaged Undergrowth Slithers Back to Life
+Rumbling Earthquakes
+Savage Transformation
+Sea Monsters
+Settle Into Hunting-Grounds
+Sleep and Never Waken
+Smothering Infestation
+Solidify Echoes of Majesty Past
+Spill Bitterness Into the Earth
+Storm-Swath
+Strangling Firevine
+Sweep into the Sea
+Talons of Lightning
+Terrifying Nightmares
+The Jungle Hungers
+The Land Thrashes in Furious Pain
+The Trees and Stones Speak of War
+The Wounded Wild Turns on its Assailants
+Thickets Erupt with Every Touch of Breeze
+Tigers Hunting
+Transform to a Murderous Darkness
+Transformative Sacrifice
+Trees Radiate Celestial Brilliance
+Tsunami
+Twisted Flowers Murmur Ultimatums
+Unearth a Beast of Wrathful Stone
+Unleash a Torrent of the Self's Own Essence
+Unlock the Gates of Deepest Power
+Unrelenting Growth
+Utter a Curse of Dread and Bone
+Vanish Softly Away, Forgotten by All
+Vengeance of the Dead
+Vigor of the Breaking Dawn
+Voice of Command
+Volcanic Eruption
+Walls of Rock and Thorn
+Weave Together the Fabric of Place
+Winds of Rust and Atrophy
+Wrap in Wings of Sunlight
