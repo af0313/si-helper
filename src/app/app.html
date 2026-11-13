@@ -165,7 +165,9 @@
                   {{
                     availableCards().length
                       ? 'Ready when you are'
-                      : hasDrawnCards()
+                      : canDraw(1)
+                        ? 'Ready to reshuffle'
+                        : hasDrawnCards()
                         ? 'No cards left to draw'
                         : 'No cards in this pile'
                   }}
@@ -174,8 +176,10 @@
                   {{
                     availableCards().length
                       ? 'Draw a card to reveal it.'
-                      : hasDrawnCards()
-                        ? 'Shuffle again to return drawn cards to this pile.'
+                      : canDraw(1)
+                        ? 'The next draw will automatically reshuffle available cards.'
+                        : hasDrawnCards()
+                        ? 'Taken and blacklisted cards stay out of rotation.'
                         : 'Restore a removed card to draw from this pile.'
                   }}
                 </p>
@@ -220,11 +224,11 @@
               <button
                 class="draw-button"
                 type="button"
-                [disabled]="!availableCards().length"
+                [disabled]="!canDraw(1)"
                 (click)="drawCards(1)"
               >
                 <span aria-hidden="true">✦</span>
-                {{ availableCards().length ? 'Draw a card' : 'Pile exhausted' }}
+                {{ canDraw(1) ? 'Draw a card' : 'Pile exhausted' }}
                 <span class="button-arrow" aria-hidden="true">→</span>
               </button>
             }

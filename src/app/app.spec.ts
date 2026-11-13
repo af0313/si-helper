@@ -240,6 +240,52 @@ describe('App', () => {
     expect(compiled.querySelector('.deck-heading-copy p')?.textContent).toContain('63 remaining');
   });
 
+  it('should automatically recycle drawn cards when the pile is exhausted, excluding taken cards', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    const random = vi.spyOn(Math, 'random').mockReturnValue(0);
+
+    compiled.querySelectorAll<HTMLButtonElement>('.deck-option')[3]?.click();
+    fixture.detectChanges();
+    const fearRows = [...compiled.querySelectorAll<HTMLElement>('.card-row')];
+    fearRows[1]?.querySelector<HTMLButtonElement>('.wishlist-action')?.click();
+    for (const row of fearRows.slice(2)) {
+      row.querySelector<HTMLButtonElement>('.remove-button')?.click();
+    }
+    fixture.detectChanges();
+    expect(compiled.querySelector('.deck-heading-copy p')?.textContent).toContain('2 remaining');
+
+    compiled.querySelector<HTMLButtonElement>('.draw-button')?.click();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.drawn-card-center h3')?.textContent).toContain('Avoid the Dahan');
+    compiled.querySelector<HTMLButtonElement>('.drawn-take-button')?.click();
+    fixture.detectChanges();
+    compiled.querySelector<HTMLButtonElement>('.proceed-button')?.click();
+    fixture.detectChanges();
+
+    compiled.querySelector<HTMLButtonElement>('.draw-button')?.click();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.drawn-card-center h3')?.textContent).toContain('Belief Takes Root');
+    compiled.querySelector<HTMLButtonElement>('.proceed-button')?.click();
+    fixture.detectChanges();
+    expect(compiled.querySelector<HTMLButtonElement>('.draw-button')?.disabled).toBe(false);
+    expect(compiled.querySelector('.odds-row strong')?.textContent).toBe('100%');
+
+    compiled.querySelector<HTMLButtonElement>('.draw-button')?.click();
+    fixture.detectChanges();
+    expect(compiled.querySelector('.drawn-card-center h3')?.textContent).toContain('Belief Takes Root');
+    expect(compiled.querySelector('.draw-notices')?.textContent).toContain('Wishlist hit');
+    expect(compiled.querySelector('.deck-heading-copy p')?.textContent).toContain('0 remaining');
+    expect(compiled.querySelectorAll('.card-row-drawn').length).toBe(2);
+    expect(
+      [...compiled.querySelectorAll<HTMLElement>('.card-row')].find((row) =>
+        row.textContent?.includes('Avoid the Dahan'),
+      )?.textContent,
+    ).toContain('Taken');
+    random.mockRestore();
+  });
+
   it('should keep taken cards out after shuffling and reset every deck for a new session', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();

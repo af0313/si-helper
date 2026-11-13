@@ -127,7 +127,8 @@ export class App {
   protected readonly redFlagOdds = computed(() => this.oddsFor('red-flag'));
 
   protected drawOddsFor(mark: Exclude<CardMark, 'none'>, count: number): number {
-    return this.chanceOfMark(this.availableCards(), mark, count);
+    const cards = this.availableCards();
+    return this.chanceOfMark(count > cards.length ? this.cardsInCycle() : cards, mark, count);
   }
 
   protected selectDeck(deckId: string): void {
@@ -142,8 +143,10 @@ export class App {
   }
 
   protected drawCards(count: number): void {
+    if (!this.canDraw(count)) return;
+
+    if (count > this.availableCards().length) this.recycleDrawnCards();
     const cards = this.availableCards();
-    if (!Number.isInteger(count) || count < 1 || count > cards.length) return;
 
     this.drawCount.set(count);
     this.customDrawValue.set(String(count));
@@ -181,7 +184,7 @@ export class App {
   }
 
   protected canDraw(count: number): boolean {
-    return count > 0 && count <= this.availableCards().length;
+    return count > 0 && count <= this.cardsInCycle().length;
   }
 
   protected setCardMark(cardId: string, mark: Exclude<CardMark, 'none'>): void {
@@ -230,10 +233,12 @@ export class App {
   }
 
   protected cardProbability(card: Card): string {
-    if (!this.isAvailable(card) && !card.drawn) return '—';
+    if (card.blacklisted || card.taken || (!this.frenchAdversary() && this.isFrenchOnly(card))) return '—';
     if (card.drawn) return 'Drawn';
-    return this.availableCards().length && this.drawCount() > 0
-      ? `${Math.round((Math.min(this.drawCount(), this.availableCards().length) / this.availableCards().length) * 100)}%`
+    const available = this.availableCards();
+    const oddsPool = this.drawCount() > available.length ? this.cardsInCycle() : available;
+    return oddsPool.includes(card) && oddsPool.length && this.drawCount() > 0
+      ? `${Math.round((Math.min(this.drawCount(), oddsPool.length) / oddsPool.length) * 100)}%`
       : '—';
   }
 
@@ -253,7 +258,7 @@ export class App {
   }
 
   private oddsFor(mark: Exclude<CardMark, 'none'>): number {
-    return this.chanceOfMark(this.availableCards(), mark, this.drawCount());
+    return this.drawOddsFor(mark, this.drawCount());
   }
 
   private chanceOfMark(cards: Card[], mark: Exclude<CardMark, 'none'>, count: number): number {
@@ -282,12 +287,34 @@ export class App {
   }
 
   private isAvailable(card: Card): boolean {
-    return (
-      !card.blacklisted &&
-      !card.drawn &&
-      !card.taken &&
-      (!this.isFrenchOnly(card) || this.frenchAdversary())
+    return this.isInCycle(card) && !card.drawn;
+  }
+
+  private isInCycle(card: Card): boolean {
+    return !card.blacklisted && !card.taken && (!this.isFrenchOnly(card) || this.frenchAdversary());
+  }
+
+  private cardsInCycle(): Card[] {
+    return this.selectedDeck().cards.filter((card) => this.isInCycle(card));
+  }
+
+  private recycleDrawnCards(): void {
+    const deckId = this.selectedDeckId();
+    this.decks.update((decks) =>
+      decks.map((deck) =>
+        deck.id === deckId
+          ? {
+              ...deck,
+              cards: deck.cards.map((card) =>
+                card.drawn && this.isInCycle(card) ? { ...card, drawn: false } : card,
+              ),
+            }
+          : deck,
+      ),
     );
+    const draws = { ...this.currentDraws() };
+    delete draws[deckId];
+    this.currentDraws.set(draws);
   }
 
   private saveBlacklist(): void {
